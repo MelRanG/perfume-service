@@ -1,6 +1,7 @@
 package com.patrick.perfume.domain.preferenceperfume;
 
 
+import com.patrick.perfume.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,23 +14,28 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor
 @Entity
-public class PreferencePerfume {
+public class PreferencePerfume extends BaseTimeEntity {
+    //로그인 구현시 userId 구현해야함 -> prePerfumeDto에도 구현해야함
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String user_id;
+    private String userId;
 
-    private String favorite_perfume;
+    private String favoritePerfume;
 
-    private String unfavorable_perfume;
+    private String unfavorablePerfume;
 
     @Builder
-    public PreferencePerfume(String user_id, String favorite_perfume, String unfavorable_perfume){
-        this.user_id = user_id;
-        this.favorite_perfume = favorite_perfume;
-        this.unfavorable_perfume = unfavorable_perfume;
+    public PreferencePerfume(String favoritePerfume, String unfavorablePerfume){
+        //여기 아이디 추가
+        this.favoritePerfume = favoritePerfume;
+        this.unfavorablePerfume = unfavorablePerfume;
     }
 
+    public void update(String favoritePerfume, String unfavorablePerfume){
+        this.favoritePerfume = favoritePerfume;
+        this.unfavorablePerfume = unfavorablePerfume;
+    }
 
 }
