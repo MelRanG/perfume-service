@@ -9,4 +9,9 @@ public class indexController {
     public String index(){
         return "index";
     }
+
+    @GetMapping("/perfume/save")
+    public String perfumeSave(){
+        return "perfume-save";
+    }
 }
