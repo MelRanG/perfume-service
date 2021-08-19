@@ -7,6 +7,7 @@ let main = {
     },
     save: function () {
         let data = {
+            userId: 'aa',
             favoritePerfume: $('#favorite_perfume').val(),
             unfavorablePerfume: $('#unfavorable_perfume').val()
         };

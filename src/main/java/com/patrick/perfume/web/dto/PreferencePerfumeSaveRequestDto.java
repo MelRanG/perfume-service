@@ -15,13 +15,15 @@ public class PreferencePerfumeSaveRequestDto {
     private String unfavorablePerfume;
 
     @Builder
-    public PreferencePerfumeSaveRequestDto(String favoritePerfume, String unfavorablePerfume){
+    public PreferencePerfumeSaveRequestDto(String userId, String favoritePerfume, String unfavorablePerfume){
+        this.userId = userId;
         this.favoritePerfume = favoritePerfume;
         this.unfavorablePerfume = unfavorablePerfume;
     }
 
     public PreferencePerfume toEntity(){
         return PreferencePerfume.builder()
+                .userId(userId)
                 .favoritePerfume(favoritePerfume)
                 .unfavorablePerfume(unfavorablePerfume)
                 .build();

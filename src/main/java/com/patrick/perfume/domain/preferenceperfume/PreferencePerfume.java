@@ -27,8 +27,8 @@ public class PreferencePerfume extends BaseTimeEntity {
     private String unfavorablePerfume;
 
     @Builder
-    public PreferencePerfume(String favoritePerfume, String unfavorablePerfume){
-        //여기 아이디 추가
+    public PreferencePerfume(String userId, String favoritePerfume, String unfavorablePerfume){
+        this.userId = userId;
         this.favoritePerfume = favoritePerfume;
         this.unfavorablePerfume = unfavorablePerfume;
     }
