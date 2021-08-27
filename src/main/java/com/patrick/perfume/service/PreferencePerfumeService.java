@@ -1,11 +1,9 @@
 package com.patrick.perfume.service;
 
+import com.patrick.perfume.domain.favoriteperfume.FavoritePerfumeRepository;
 import com.patrick.perfume.domain.preferenceperfume.PreferencePerfume;
 import com.patrick.perfume.domain.preferenceperfume.PreferencePerfumeRepository;
-import com.patrick.perfume.web.dto.PreferencePerfumeListResponseDto;
-import com.patrick.perfume.web.dto.PreferencePerfumeResponseDto;
-import com.patrick.perfume.web.dto.PreferencePerfumeSaveRequestDto;
-import com.patrick.perfume.web.dto.PreferencePerfumeUpdateRequestDto;
+import com.patrick.perfume.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class PreferencePerfumeService {
     private final PreferencePerfumeRepository preRepository;
+
 
     @Transactional
     public Long save(PreferencePerfumeSaveRequestDto preRequestDto){

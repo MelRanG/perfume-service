@@ -11,11 +11,19 @@
         <a class="navbar-brand" href="/">Perfume Service</a>
         <div class="navbar-collapse collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                {{#userName}}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#!">로그인</a>
+                    <span class="nav-link active" id="user" aria-current="page">{{userName}}</span>
+                    <a href="/logout" class="nav-link active" role="button">Logout</a>
                 </li>
+                {{/userName}}
+                {{^userName}}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/perfume/save">향수 등록</a>
+                    <a href="/oauth2/authorization/google" class="nav-link active" aria-current="page" >로그인</a>
+                </li>
+                {{/userName}}
+                <li class="nav-item">
+                    <a href="/perfume/save" class="nav-link active" aria-current="page">향수 등록</a>
                 </li>
             </ul>
         </div>
