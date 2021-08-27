@@ -14,12 +14,18 @@
                 {{#userName}}
                 <li class="nav-item">
                     <span class="nav-link active" id="user" aria-current="page">{{userName}}</span>
+
+                </li>
+                <li class="nav-item">
                     <a href="/logout" class="nav-link active" role="button">Logout</a>
                 </li>
                 {{/userName}}
                 {{^userName}}
                 <li class="nav-item">
-                    <a href="/oauth2/authorization/google" class="nav-link active" aria-current="page" >로그인</a>
+                    <a href="/oauth2/authorization/google" class="nav-link active" aria-current="page" >구글로그인</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/oauth2/authorization/naver" class="nav-link active" aria-current="page" >네이버로그인</a>
                 </li>
                 {{/userName}}
                 <li class="nav-item">

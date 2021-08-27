@@ -1,5 +1,6 @@
 package com.patrick.perfume.web;
 
+import com.patrick.perfume.config.auth.LoginUser;
 import com.patrick.perfume.config.auth.dto.SessionUser;
 import com.patrick.perfume.service.PreferencePerfumeService;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +18,8 @@ public class indexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user){
         model.addAttribute("prePerfume", preService.findAllDesc());
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-
         if (user != null){
             model.addAttribute("userName", user.getName());
         }
