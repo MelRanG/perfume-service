@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class PreferencePerfumeResponseDto {
+    //update시에 사용
     private Long id;
     private String favoritePerfume;
     private String unfavorablePerfume;

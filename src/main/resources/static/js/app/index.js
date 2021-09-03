@@ -6,8 +6,9 @@ let main = {
         });
     },
     save: function () {
+
         let data = {
-            userId: 'aa',
+            userId: $('#user_id').text(),
             favoritePerfume: $('#favorite_perfume').val(),
             unfavorablePerfume: $('#unfavorable_perfume').val()
         };
