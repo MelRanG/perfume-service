@@ -1,7 +1,6 @@
 package com.patrick.perfume.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -11,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
 
 
 @Getter
@@ -35,8 +35,8 @@ public class BasePerfumeEntity {
     @LastModifiedDate
     private LocalDateTime modifiedDate;
 
-    public void update(String perfumeName, String image){
-        this.perfumeName = perfumeName;
-        this.image = image;
-    }
+//    public void update(String perfumeName, String image){
+//        this.perfumeName = perfumeName;
+//        this.image = image;
+//    }
 }

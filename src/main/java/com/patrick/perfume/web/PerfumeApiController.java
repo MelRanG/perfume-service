@@ -16,15 +16,15 @@ public class PerfumeApiController {
     private final PerfumeService perfumeService;
 
     @PostMapping("/api/v1/pre")
-    public Long save(@RequestBody PerfumeRequestDto perfume){
-        //perfume을 받아서 favorite엔티티와 unfavorable엔티티로 분할해서 전달해야함
-        return perfumeService.save(perfume);
+    public void save(@RequestBody PerfumeRequestDto perfume){
+        System.out.println("컨트롤러 : " + perfume.toString());
+        perfumeService.save(perfume);
     }
 
-    @PutMapping("/api/v1/pre/{id}")
-    public Long update(@PathVariable Long id, @RequestBody PerfumeUpdateRequestDto perfume){
-        return perfumeService.update(id, perfume);
-    }
+//    @PutMapping("/api/v1/pre/{id}")
+//    public Long update(@PathVariable Long id, @RequestBody PerfumeUpdateRequestDto perfume){
+//        return perfumeService.update(id, perfume);
+//    }
 
     @GetMapping("/api/v1/pre/{id}")
     public PerfumeResponseDto findById(@PathVariable Long id){

@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -58,14 +59,13 @@ public class PerfumeApiControllerTest {
     @WithMockUser(roles="USER")
     public void perfume_등록된다() throws Exception{
         //given
-        String userId = "조말론";
-        String perfumeName = "불가리";
-        String image = "aaa";
-        PerfumeSaveRequestDto perfumeRequestDto = PerfumeSaveRequestDto.builder()
-                .userId(userId)
-                .perfumeName(perfumeName)
-                .image(image)
-                .build();
+        String userId = "id";
+        List<String> favorite = Arrays.asList("1번", "2번", "3번");
+        List<String> unfavorable = Arrays.asList("4번", "5번", "6번");
+        String image = "image";
+
+        PerfumeRequestDto perfumeRequestDto = new PerfumeRequestDto(userId, favorite, unfavorable);
+
         String url = "http://localhost:" + port + "/api/v1/pre";
 
         //when
@@ -77,7 +77,7 @@ public class PerfumeApiControllerTest {
         //then
         List<FavoritePerfume> all = perfumeRepository.findAll();
         assertThat(all.get(0).getUserId()).isEqualTo(userId);
-        assertThat(all.get(0).getPerfumeName()).isEqualTo(perfumeName);
+        assertThat(all.get(0).getPerfumeName()).isEqualTo("1번");
 
     }
 
@@ -118,27 +118,27 @@ public class PerfumeApiControllerTest {
         assertThat(all.get(0).getImage()).isEqualTo(expectedimage);
     }
 
-    @Test
-    @WithMockUser(roles = "USER")
-    public void perfume_조회() throws Exception{
-        String userId = "mel";
-        String perfumeName = "불가리";
-        String image = "aaa";
-        PerfumeSaveRequestDto perfumeRequestDto = PerfumeSaveRequestDto.builder()
-                .userId(userId)
-                .perfumeName(perfumeName)
-                .image(image)
-                .build();
-        String url = "http://localhost:" + port + "/api/v1/pre";
-
-        //when
-        mvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(new ObjectMapper().writeValueAsString(perfumeRequestDto)))
-                .andExpect(status().isOk());
-
-        List<PerfumeListResponseInterface> responseDto = perfumeRepository.findAllDesc();
-        System.out.println(responseDto.get(0).getPerfumeName());
-        //assertThat(responseDto.get(0).getPerfumeName()).isEqualTo("불가리");
-    }
+//    @Test
+//    @WithMockUser(roles = "USER")
+//    public void perfume_조회() throws Exception{
+//        String userId = "mel";
+//        String perfumeName = "불가리";
+//        String image = "aaa";
+//        PerfumeSaveRequestDto perfumeRequestDto = PerfumeSaveRequestDto.builder()
+//                .userId(userId)
+//                .perfumeName(perfumeName)
+//                .image(image)
+//                .build();
+//        String url = "http://localhost:" + port + "/api/v1/pre";
+//
+//        //when
+//        mvc.perform(post(url)
+//                .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                .content(new ObjectMapper().writeValueAsString(perfumeRequestDto)))
+//                .andExpect(status().isOk());
+//
+//        List<PerfumeListResponseInterface> responseDto = perfumeRepository.findAllDesc();
+//        System.out.println(responseDto.get(0).getPerfumeName());
+//        //assertThat(responseDto.get(0).getPerfumeName()).isEqualTo("불가리");
+//    }
 }

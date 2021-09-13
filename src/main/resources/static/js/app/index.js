@@ -6,20 +6,21 @@ let main = {
         });
     },
     save: function () {
+        let favorite = $('#favorite_perfume').val().split(' ').filter((word) => word.length > 1);
+        let unfavorable = $('#unfavorable_perfume').val().split(' ').filter((word) => word.length > 1);
 
         let data = {
             userId: $('#user_id').text(),
-            favoritePerfume: $('#favorite_perfume').val(),
-            unfavorablePerfume: $('#unfavorable_perfume').val()
+            favoritePerfume: favorite,
+            unfavorablePerfume: unfavorable
         };
         $.ajax({
             type: 'POST',
             url: '/api/v1/pre',
-            dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function () {
-            alert('글이 등록되었습니다.');
+            alert('글이 등록되었습니다. ' + data);
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));

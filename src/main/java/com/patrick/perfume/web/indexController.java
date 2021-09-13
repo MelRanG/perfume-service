@@ -21,7 +21,7 @@ public class indexController {
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user){
-        model.addAttribute("perfume", perfumeService.findAllDesc());
+        model.addAttribute("perfume", perfumeService.findAllCount());
 
         if (user != null){
             model.addAttribute("userName", user.getName());

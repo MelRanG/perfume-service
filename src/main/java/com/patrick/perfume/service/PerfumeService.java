@@ -11,42 +11,56 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class PerfumeService {
 
-    private final FavoritePerfumeRepository perfumeRepo;
+    private final FavoritePerfumeRepository favoritePerfumeRepo;
     private final UnFavorablePerfumeRepository unPerfumeRepo;
 
 
-    @Transactional
-    public Long save(PerfumeRequestDto requestDto){
-        PerfumeSaveRequestDto perfumeSaveRequestDto = new PerfumeSaveRequestDto(requestDto.getUserId(), requestDto.getFavoritePerfume(), "aa");
-        UnFavorablePerfumeSaveRequestDto unPerfumeSaveRequestDto = new UnFavorablePerfumeSaveRequestDto(requestDto.getUserId(), requestDto.getUnfavorablePerfume(), "aa");
-
-        unPerfumeRepo.save(unPerfumeSaveRequestDto.toEntity());
-        return perfumeRepo.save(perfumeSaveRequestDto.toEntity()).getId();
-    }
 
     @Transactional
-    public Long update(Long id, PerfumeUpdateRequestDto perfumeUpdateRequestDto){
-        FavoritePerfume perfume = perfumeRepo.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
-        perfume.update(perfumeUpdateRequestDto.getPerfumeName(), perfumeUpdateRequestDto.getImage());
-        return id;
+    public void save(PerfumeRequestDto requestDto){
+        PerfumeSaveRequestDto perfumeSaveRequestDto = new PerfumeSaveRequestDto();
+
+        List<String> favoritePerfumeName = requestDto.getFavoritePerfume();
+        List<String> unfavoritePerfumeName = requestDto.getUnfavorablePerfume();
+
+        for(String perfume: favoritePerfumeName){
+            favoritePerfumeRepo.save(FavoritePerfume.builder()
+                    .userId("id")
+                    .perfumeName(perfume)
+                    .image("image")
+                    .build());
+        }
+
+        for(String perfume: unfavoritePerfumeName){
+            unPerfumeRepo.save(UnFavorablePerfume.builder()
+                    .userId("id")
+                    .perfumeName(perfume)
+                    .image("image")
+                    .build());
+        }
     }
+
+//    @Transactional
+//    public Long update(Long id, PerfumeUpdateRequestDto perfumeUpdateRequestDto){
+//        FavoritePerfume perfume = perfumeRepo.findById(id).orElseThrow(() ->
+//                new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+//        perfume.update(perfumeUpdateRequestDto.getPerfumeName(), perfumeUpdateRequestDto.getImage());
+//        return id;
+//    }
 
     public PerfumeResponseDto findById(Long id){
-        FavoritePerfume entity = perfumeRepo.findById(id).orElseThrow(() ->
+        FavoritePerfume entity = favoritePerfumeRepo.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
         return new PerfumeResponseDto(entity);
     }
 
     @Transactional
-    public List<PerfumeListResponseInterface> findAllDesc(){
-        return perfumeRepo.findAllDesc();
+    public List<PerfumeListResponseInterface> findAllCount(){
+        return favoritePerfumeRepo.findAllCount();
     }
-
 }
