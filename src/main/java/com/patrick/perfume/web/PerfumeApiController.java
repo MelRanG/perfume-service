@@ -15,10 +15,9 @@ public class PerfumeApiController {
 
     private final PerfumeService perfumeService;
 
-    @PostMapping("/api/v1/pre")
-    public void save(@RequestBody PerfumeRequestDto perfume){
-        System.out.println("컨트롤러 : " + perfume.toString());
-        perfumeService.save(perfume);
+    @PostMapping("/api/v1/perfume")
+    public boolean save(@RequestBody PerfumeRequestDto perfume){
+        return perfumeService.save(perfume);
     }
 
 //    @PutMapping("/api/v1/pre/{id}")
@@ -26,7 +25,7 @@ public class PerfumeApiController {
 //        return perfumeService.update(id, perfume);
 //    }
 
-    @GetMapping("/api/v1/pre/{id}")
+    @GetMapping("/api/v1/perfume/{id}")
     public PerfumeResponseDto findById(@PathVariable Long id){
         return perfumeService.findById(id);
     }

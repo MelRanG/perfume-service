@@ -7,6 +7,9 @@ import com.patrick.perfume.domain.unfavorableperfume.UnFavorablePerfume;
 import com.patrick.perfume.domain.unfavorableperfume.UnFavorablePerfumeRepository;
 import com.patrick.perfume.web.dto.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,33 +20,40 @@ import java.util.List;
 public class PerfumeService {
 
     private final FavoritePerfumeRepository favoritePerfumeRepo;
-    private final UnFavorablePerfumeRepository unPerfumeRepo;
-
+    private final UnFavorablePerfumeRepository unFavorablePerfumeRepo;
+    private static final int PAGE_POST_COUNT = 16;
 
 
     @Transactional
-    public void save(PerfumeRequestDto requestDto){
-        PerfumeSaveRequestDto perfumeSaveRequestDto = new PerfumeSaveRequestDto();
-
+    public boolean save(PerfumeRequestDto requestDto) {
         List<String> favoritePerfumeName = requestDto.getFavoritePerfume();
         List<String> unfavoritePerfumeName = requestDto.getUnfavorablePerfume();
+        boolean check = true;
 
-        for(String perfume: favoritePerfumeName){
-            favoritePerfumeRepo.save(FavoritePerfume.builder()
-                    .userId("id")
-                    .perfumeName(perfume)
-                    .image("image")
-                    .build());
+        for (String perfume : favoritePerfumeName) {
+            // 아이디 중복  체크
+            if (favoriteCountByUserIdAndPerfumeName(requestDto.getUserId(), perfume)) {
+                favoritePerfumeRepo.save(FavoritePerfume.builder()
+                        .userId(requestDto.getUserId())
+                        .perfumeName(perfume)
+                        .image("https://dummyimage.com/450x300/dee2e6/6c757d.jpg")
+                        .build());
+            } else {
+                check = false;
+            }
         }
-
-        for(String perfume: unfavoritePerfumeName){
-            unPerfumeRepo.save(UnFavorablePerfume.builder()
-                    .userId("id")
-                    .perfumeName(perfume)
-                    .image("image")
-                    .build());
+        for (String perfume : unfavoritePerfumeName) {
+            if (unFavorableCountByUserIdAndPerfumeName(requestDto.getUserId(), perfume)) {
+                unFavorablePerfumeRepo.save(UnFavorablePerfume.builder()
+                        .userId(requestDto.getUserId())
+                        .perfumeName(perfume)
+                        .image("https://dummyimage.com/450x300/dee2e6/6c757d.jpg")
+                        .build());
+            } else{
+            check =  false;
         }
-    }
+    } return check;
+}
 
 //    @Transactional
 //    public Long update(Long id, PerfumeUpdateRequestDto perfumeUpdateRequestDto){
@@ -56,11 +66,37 @@ public class PerfumeService {
     public PerfumeResponseDto findById(Long id){
         FavoritePerfume entity = favoritePerfumeRepo.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("해당 게시글이 없습니다. id=" + id));
+
         return new PerfumeResponseDto(entity);
     }
 
-    @Transactional
-    public List<PerfumeListResponseInterface> findAllCount(){
-        return favoritePerfumeRepo.findAllCount();
+    public boolean favoriteCountByUserIdAndPerfumeName(String userId, String perfumeName){
+        if (favoritePerfumeRepo.countByFavoriteUserIdAndPerfumeName(userId, perfumeName) == 0){return true;}
+        return false;
     }
+
+    public boolean unFavorableCountByUserIdAndPerfumeName(String userId, String perfumeName) {
+        if(unFavorablePerfumeRepo.countByUnFavorableUserIdAndPerfumeName(userId, perfumeName) == 0){return true;}
+        return false;
+    }
+
+//    @Transactional
+//    public List<PerfumeListResponseInterface> findAllCount(){
+//        return favoritePerfumeRepo.findAllCount();
+//    }
+
+    @Transactional
+    public Page<PerfumeListResponseInterface> findAllCount(Pageable pageable){
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        return favoritePerfumeRepo.findAllCount(pageable);
+    }
+
+    public List<FavoritePerfume> findByFavoritePerfumeName(String perfumeName){
+        return favoritePerfumeRepo.findByPerfumeName(perfumeName);
+    }
+
+    public List<UnFavorablePerfume> findByUnfavorablePerfumeName(String perfumeName){
+        return unFavorablePerfumeRepo.findByPerfumeName(perfumeName);
+    }
+
 }

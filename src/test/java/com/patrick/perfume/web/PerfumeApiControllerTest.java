@@ -66,7 +66,7 @@ public class PerfumeApiControllerTest {
 
         PerfumeRequestDto perfumeRequestDto = new PerfumeRequestDto(userId, favorite, unfavorable);
 
-        String url = "http://localhost:" + port + "/api/v1/pre";
+        String url = "http://localhost:" + port + "/api/v1/perfume";
 
         //when
         mvc.perform(post(url)
@@ -104,7 +104,7 @@ public class PerfumeApiControllerTest {
                 .image(expectedimage)
                 .build();
 
-        String url = "http://localhost:" + port + "/api/v1/pre/" + updateId;
+        String url = "http://localhost:" + port + "/api/v1/perfume/" + updateId;
 
         //when
         mvc.perform(put(url)

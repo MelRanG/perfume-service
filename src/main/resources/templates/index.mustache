@@ -7,10 +7,10 @@
             {{#perfume}}
                 <div class="clo mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg">
+                        <img class="card-img-top" src="{{image}}">
                         <div class="card-body p-4">
                             <div class="text-center">
-                                <h5 class="fw-bolder">{{perfumeName}}</h5>
+                                <a href="/perfume/detail/{{perfumeName}}"><h5 class="fw-bolder">{{perfumeName}}</h5></a>
                                 호감도:{{CountPerfumeName}}
                             </div>
                         </div>
@@ -24,6 +24,21 @@
             {{/perfume}}
         </div>
     </div>
+
+        <ul class="pagination justify-content-center">
+            {{#perfume.hasPrevious}}
+                <li class="page-item"><a class="page-link" href="/perfume/list?page={{previous}}">이전</a> </li>
+            {{/perfume.hasPrevious}}
+            {{^perfume.hasPrevious}}
+                <li class="page-item disabled"><a class="page-link" href="/perfume/list?page={{previous}}">이전</a> </li>
+            {{/perfume.hasPrevious}}
+            {{#perfume.hasNext}}
+                <li class="page-item"><a class="page-link" href="/perfume/list?page={{next}}">다음</a> </li>
+            {{/perfume.hasNext}}
+            {{^perfume.hasNext}}
+                <li class="page-item disabled"><a class="page-link" href="/perfume/list?page={{next}}">다음</a> </li>
+            {{/perfume.hasNext}}
+        </ul>
 </main>
 
 {{>layout/footer}}

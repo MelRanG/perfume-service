@@ -2,11 +2,11 @@ package com.patrick.perfume.web.dto;
 
 import com.patrick.perfume.domain.BasePerfumeEntity;
 import com.patrick.perfume.domain.favoriteperfume.FavoritePerfume;
-import com.patrick.perfume.domain.preferenceperfume.PreferencePerfume;
-import com.patrick.perfume.domain.unfavorableperfume.UnFavorablePerfume;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor

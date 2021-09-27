@@ -29,11 +29,11 @@ public class BasePerfumeEntity {
 
     private String image;
 
-    @CreatedDate
-    private LocalDateTime createdDate;
-
-    @LastModifiedDate
-    private LocalDateTime modifiedDate;
+//    @CreatedDate
+//    private LocalDateTime createdDate;
+//
+//    @LastModifiedDate
+//    private LocalDateTime modifiedDate;
 
 //    public void update(String perfumeName, String image){
 //        this.perfumeName = perfumeName;

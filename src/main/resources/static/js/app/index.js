@@ -16,12 +16,14 @@ let main = {
         };
         $.ajax({
             type: 'POST',
-            url: '/api/v1/pre',
+            url: '/api/v1/perfume',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function () {
-            alert('글이 등록되었습니다. ' + data);
-            window.location.href = '/';
+            data: JSON.stringify(data),
+        }).done(function (check) {
+            if(check){
+                alert('글이 등록되었습니다. ');
+                window.location.href = '/';
+            } else{alert('이미 등록한 향수명 입니다.')}
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
