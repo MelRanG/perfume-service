@@ -31,7 +31,7 @@ public class PerfumeService {
         boolean check = true;
 
         for (String perfume : favoritePerfumeName) {
-            // 아이디 중복  체크
+            // 향수 중복 체크
             if (favoriteCountByUserIdAndPerfumeName(requestDto.getUserId(), perfume)) {
                 favoritePerfumeRepo.save(FavoritePerfume.builder()
                         .userId(requestDto.getUserId())
@@ -95,8 +95,24 @@ public class PerfumeService {
         return favoritePerfumeRepo.findByPerfumeName(perfumeName);
     }
 
+    public List<FavoritePerfume> findByFavoriteUserId(String userId){
+        return favoritePerfumeRepo.findByUserId(userId);
+    }
+
     public List<UnFavorablePerfume> findByUnfavorablePerfumeName(String perfumeName){
         return unFavorablePerfumeRepo.findByPerfumeName(perfumeName);
+    }
+
+    public List<String> findByFavoriteUserLikePerfume(String perfumeName){
+        return favoritePerfumeRepo.findByFavoriteUserLikePerfume(perfumeName);
+    }
+
+    public List<String> findByUnFavorableUserLikePerfume(String perfume){
+        return unFavorablePerfumeRepo.findByUnFavorableUserLikePerfume(perfume);
+    }
+
+    public List<PerfumeListResponseInterface> findByPerfumeNameContaining(String perfumeName){
+        return favoritePerfumeRepo.findByPerfumeNameContaining(perfumeName);
     }
 
 }

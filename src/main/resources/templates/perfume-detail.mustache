@@ -10,12 +10,11 @@
                         <h5 class="text-center">{{perfumeName}}</h5>
                         <h5 class="text-center">호감 : {{favoriteUser}}</h5>
                         <h5 class="text-center">불호감 : {{unFavorableUser}}</h5>
-
                     </div>
                 </div>
 
             </div>
-            <div class="row col-md-9 profile_top_right_wrap">
+            <div class="profile_top_right_wrap row col-md-9">
                 <div class="profile_right_top row">
                     <div class="favorite_list col-md-6 mt-4">
                         <h5 class="text-center">호감 유저</h5>
@@ -34,11 +33,30 @@
                             {{/unFavorableUserList}}
                     </div>
                 </div>
-                <div class="commlist mt-4 border border-dark">
-                    <h3 class="text-center">향수 한줄평</h3>
 
+                <div class="profile_right_top row">
+                    <div class="favorite_list col-md-6 mt-4">
+                        <h5 class="text-center">호감 유저가 선호하는 다른 향수</h5>
+                        {{#favoriteUserLikePerfume}}
+                        <span class="col col-lg-2">
+                                <a href="/perfume/detail/{{.}}">{{.}}</a>
+                            </span>
+                        {{/favoriteUserLikePerfume}}
+                    </div>
+                    <div class="unfavorable_list col-md-6 mt-4 mr-4">
+                        <h5 class="text-center">불호감 유저가 선호하는 다른 향수</h5>
+                        {{#unFavorableUserLikePerfume}}
+                        <span class="col col-lg-2">
+                                <a href="/perfume/detail/{{.}}">{{.}}</a>
+                            </span>
+                        {{/unFavorableUserLikePerfume}}
+                    </div>
                 </div>
             </div>
+        <div class="commlist mt-4 border border-dark">
+            <h3 class="text-center">향수 한줄평</h3>
+
+        </div>
         </div>
 </main>
 

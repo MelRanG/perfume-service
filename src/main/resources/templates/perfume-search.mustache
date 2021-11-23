@@ -26,20 +26,4 @@
         </div>
     </div>
 
-        <ul class="pagination justify-content-center">
-            {{#perfume.hasPrevious}}
-                <li class="page-item"><a class="page-link" href="/perfume/list?page={{previous}}">이전</a> </li>
-            {{/perfume.hasPrevious}}
-            {{^perfume.hasPrevious}}
-                <li class="page-item disabled"><a class="page-link" href="/perfume/list?page={{previous}}">이전</a> </li>
-            {{/perfume.hasPrevious}}
-            {{#perfume.hasNext}}
-                <li class="page-item"><a class="page-link" href="/perfume/list?page={{next}}">다음</a> </li>
-            {{/perfume.hasNext}}
-            {{^perfume.hasNext}}
-                <li class="page-item disabled"><a class="page-link" href="/perfume/list?page={{next}}">다음</a> </li>
-            {{/perfume.hasNext}}
-        </ul>
-</main>
-
 {{>layout/footer}}
